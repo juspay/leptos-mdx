@@ -3,7 +3,7 @@ use std::collections::HashMap;
 use crate::markdown::parse;
 use html_parser::{Dom, Element};
 use leptos::{
-    component, html::ElementDescriptor, warn, Children, Fragment, HtmlElement, IntoView, View,
+    component, html::ElementDescriptor, Children, Fragment, HtmlElement, IntoView, View,
 };
 
 #[component]
@@ -222,7 +222,7 @@ pub fn process_element(el: &Element, components: &Components) -> View {
         "slot" => html_element(el, child_views, leptos::html::slot()),
         "template" => html_element(el, child_views, leptos::html::template()),
         _ => {
-            warn!("unknown element {}", el.name);
+            println!("unknown element {}", el.name);
             ().into_view()
         }
     }

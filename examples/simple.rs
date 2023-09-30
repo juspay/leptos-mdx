@@ -1,5 +1,14 @@
 use leptos::{ssr::render_to_string, *};
 use leptos_mdx::mdx::{Components, Mdx, MdxComponentProps};
+use std::fs::File;
+use std::io::Write;
+
+fn write_to_file(html: &String) -> std::io::Result<()> {
+    let mut f = File::create("./examples/test_generated.html")?;
+    f.write_all(html.as_bytes())?;
+    Ok(())
+}
+
 
 fn main() {
     let source = r#"---
@@ -25,8 +34,9 @@ This is a **markdown** file with some *content*, but also custom Leptos componen
             <MyMdx source={source.into()} />
         }
     });
-
-    println!("{}", res);
+    let str = res.into_owned();
+    let _ = write_to_file(&str);
+    println!("{}", &str);
     // output ->
     //
     // <h1>Hello, world!</h1>
